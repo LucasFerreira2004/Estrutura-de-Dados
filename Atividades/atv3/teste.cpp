@@ -1,0 +1,157 @@
+// NAO ENVIAR ESSE ARQUIVO!!!!!!!!!!!!!!!!!
+#include <fstream>
+#include <iostream> //É pra tá fora do arquivo final!!!!
+#include <string>   //tbm é pra ta foraaaa
+
+using namespace std; // tbm é pra ta foraaaa
+
+#define atividade "3"
+#define nome "Lucas Ferreira Nobre"
+#define matricula "554590"
+
+namespace aluno
+{
+
+    /*
+    Representa uma fração reduzida, ou seja, numerador e denominador são primos entre si.
+    */
+
+    class frac
+    {
+        int num;
+        int den;
+        static int mdc(int a, int b)
+        {
+            if (b == 0)
+                return a;
+            return (mdc(b, a % b));
+        }
+
+    public:
+        frac(int n = 0, int d = 1)
+        {
+            int m = mdc(n, d);
+            num = n / m;
+            den = d / m;
+        }
+        // Operadores
+        bool operator>(frac &frac2)
+        {
+            if (((float)num / den) > ((float)frac2.getNum() / frac2.getDen()))
+                return true;
+            return false;
+        }
+        bool operator==(frac &frac2)
+        {
+            if (num == frac2.getNum() && den == frac2.getDen())
+                return true;
+            return false;
+        }
+        frac operator+(frac &frac2)
+        {
+            int newNum = num * frac2.getDen() + den * frac2.getNum();
+            int newDen = den * frac2.getDen();
+            return frac(newNum, newDen);
+        }
+        int getNum() { return num; }
+        int getDen() { return den; }
+
+        // ESSE método NAO E PRA IR PRA CLASSE FINAL!!!!!
+        void print()
+        {
+            std::cout << num << "/" << den << "  ";
+        }
+    };
+
+    frac *loadFracs(const char *fileFracs)
+    {
+        std::fstream file(fileFracs);
+        int size;
+        file >> size;
+
+        frac *vetFracs = new frac[size];
+
+        for (int i = 0; i < size; i++)
+        {
+            int num, den;
+            file >> num >> den;
+            vetFracs[i] = frac(num, den);
+        }
+        file.close();
+        return vetFracs;
+        /*
+        Retorna frações num arquivo e as coloca em um vetor alocaso dinamicamente.
+
+        O conteúdo de tais arquivos segue o formato do esquema a seguir,
+
+        -----------
+        4           | -> 4 frações
+        1   2       | -> fração 1/2
+        3   5       | -> fração 1/5
+        2   9       ! -> fração 2/9
+        7   11      ! -> fração 7/11
+        -------------
+        */
+    }
+
+    frac sumFracs(frac fracs[], int n)
+    {
+        frac sum = fracs[0];
+        for (int i = 1; i < n; i++)
+        {
+            sum = sum + fracs[i];
+        }
+        return frac(sum.getNum(), sum.getDen());
+    }
+
+    void sortFracs(frac fracs[], int n)
+    {
+        for (int i = n - 1; i > 0; i--)
+            for (int j = 0; j < i; j++)
+                if (fracs[j] > fracs[j + 1])
+                {
+                    frac x = fracs[j];
+                    fracs[j] = fracs[j + 1];
+                    fracs[j + 1] = x;
+                }
+    }
+}
+
+using namespace aluno;
+int main()
+{
+    frac *vet = loadFracs("fracsFile.txt");
+    int numFracoes = 4;
+    if (vet == nullptr)
+    {
+        cout << "Erro ao carregar frações do arquivo!" << endl;
+        return 1;
+    }
+
+    // Exibição das frações lidas
+    cout << "Frações lidas do arquivo:" << endl;
+    for (int i = 0; i < numFracoes; i++)
+    {
+        vet[i].print();
+        cout << endl;
+    }
+
+    // Teste da função sumFracs
+    cout << endl
+         << "Soma de todas as frações:" << endl;
+    frac soma = sumFracs(vet, numFracoes);
+    soma.print();
+    cout << endl;
+
+    // Teste da função sortFracs
+    cout << endl
+         << "Frações ordenadas:" << endl;
+    sortFracs(vet, numFracoes);
+    for (int i = 0; i < numFracoes; i++)
+    {
+        vet[i].print();
+        cout << endl;
+    }
+
+    return 0;
+}
