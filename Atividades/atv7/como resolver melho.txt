@@ -1,0 +1,3 @@
+bem, para realizar a soma sem converter para inteiro temos que primeiro inverter a lista e após isso simular 
+como seria o processo de resolução manual que estamos acostumados. Por exemplo, para a soma teríamos uma varíavel 
+dedicada a guardar o resto da soma, ex: 9 + 9 = 18, 8 iria para a lista e a variável de resto guardaria o 1. 

@@ -5,9 +5,10 @@ struct nodo {
     }
 
     int push(int x){
-        nodo *q new nodo(x);
+        nodo *q = new nodo(x);
     }
-}
+};
+
 int main(){
 
     return 0;
