@@ -50,17 +50,6 @@ class bigNumber {
         }
     }
 
-    int bigNumberToInt(){
-        int x = 0;
-        nodo *p = ptCabeca;
-        int m = 1;  
-        while(p->next != nullptr){
-            x += p->next->digit * m;
-            p = p->next;
-            m*=10;
-        }
-        return x;
-    }
     
 public:
     bigNumber(int x) {
@@ -107,4 +96,16 @@ public:
         int bn2 = bn.bigNumberToInt();
         return bn1 == bn2;
     };
+
+        int bigNumberToInt(){
+        int x = 0;
+        nodo *p = ptCabeca;
+        int m = 1;  
+        while(p->next != nullptr){
+            x += p->next->digit * m;
+            p = p->next;
+            m*=10;
+        }
+        return x;
+    }
 };

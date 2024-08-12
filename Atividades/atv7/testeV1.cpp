@@ -49,6 +49,7 @@ class bigNumber {
             m*=10;
         }
     }
+
     
 public:
     bigNumber(int x) {
@@ -96,7 +97,7 @@ public:
         return bn1 == bn2;
     };
 
-    int bigNumberToInt(){
+        int bigNumberToInt(){
         int x = 0;
         nodo *p = ptCabeca;
         int m = 1;  
@@ -108,7 +109,6 @@ public:
         return x;
     }
 };
-
 int main(){
     bigNumber n1;
     bigNumber n2(1000);
