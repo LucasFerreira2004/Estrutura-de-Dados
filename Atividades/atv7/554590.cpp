@@ -97,7 +97,7 @@ public:
         return bn1 == bn2;
     };
 
-        int bigNumberToInt(){
+    int bigNumberToInt(){
         int x = 0;
         nodo *p = ptCabeca;
         int m = 1;  
