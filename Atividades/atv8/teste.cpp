@@ -60,16 +60,17 @@ void buscaSimetrica(node *root){
   cout << root->key << ' ';
   buscaSimetrica(root->right);
 }
-void loadVec(node* root, int u[], int n, int& i = indexGlobal){ //essa referência é um parâmetro a mais.
+void loadVec(node* root, int u[], int n){ //essa referência é um parâmetro a mais.
   /* 
 varre árvore enraizada em root  usando percurso em ordem simétrica e coloca cada chave visitada progressivamente em u  na ordem de visitação da árvore. u.
 */
+  static int i = 0;
   if (root == nullptr)
     return;
-  loadVec(root->left, u, n, i);
+  loadVec(root->left, u, n);
   u[i++] = root->key;
-  loadVec(root->right, u, n, i); 
-  if (indexGlobal == n) indexGlobal =0;
+  loadVec(root->right, u, n); 
+  if (i == n) i = 0;
 }
 
 

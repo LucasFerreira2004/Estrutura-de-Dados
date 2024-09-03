@@ -100,49 +100,63 @@ class tree{
 
         }
     }
-    // bool remove(int x) {
-    //     if (pt_raiz == nullptr) {
-    //         return false;
-    //     }
 
-    //     // busca do nó a ser removido
-    //     node *p = nullptr;
-    //     node *q = pt_raiz;
-
-    //     while (q != nullptr) {
-    //         if (q->key == x)
-    //             break;
-    //         if (x < q->key) {
-    //             p = q;
-    //             q = q->left;
-    //         }
-    //         else if (x > q->key) {
-    //             p = q;
-    //             q = q->right;
-    //         }
-    //     }
-
-    //     if (q == nullptr) {
-    //         return false;
-    //     }
-        
-    //     node *r = p;
-    //     node *s = q;
-
-    //     while (s != nullptr) {
-    //         r = s;
-    //         s = s->right;
-    //     }
-    // }
+    bool remove(int x) {
+        if (pt_raiz == nullptr){
+            return false;
+        }
+        node *p = nullptr;
+        node *q = pt_raiz;
+        while (q != nullptr){
+            if(x == q->key)
+                break;
+            p = q;
+            if (x > q->key){
+                q = q->right;
+            }else{
+                q = q->left;
+            }
+        }
+        cout << "teste";
+        //ao final do laço p = pai do que vamos remover, q = o que vamos remover;
+        if (q == nullptr) 
+            return false;
+        if (q->right == nullptr && q->left == nullptr){ //se q é folha, mas é um teste reduntate os dois ifs já foram.
+            delete q;
+        }
+        if (q->left == nullptr || q->right == nullptr){
+            if (p->right == q){
+                if (q->right == nullptr){
+                    p->right = q->left;
+                    delete q;
+                }
+                else if(q->left == nullptr){
+                    p->right = q->right;
+                    delete q;
+                }
+            }
+            else if(p->left == q){
+                if (q->right == nullptr){
+                    p->left = q->left;
+                    delete q;
+                }
+                else if(q->left == nullptr){
+                    p->left = q->right;
+                    delete q;
+                }
+            }
+        }
+        return true;
+    }
     ~tree(){
         clear(pt_raiz);
     }
 };
 
 int main(){
-    int vet[] = {20, 10, 40, 5, 12};
+    int vet[] = {20};
     tree t;
-    t.insertVet(vet, 5);
+    t.insertVet(vet, 1);
 
     t.path("red");
     cout << '\n';
@@ -154,5 +168,8 @@ int main(){
     cout << "lf: \n";
     t.lf();
     cout << "\n";
+    t.remove(20);
+    t.path("red");
+    cout << endl;
     return 0;
 }
